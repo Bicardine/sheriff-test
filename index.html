@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кто тебе Шериф?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Caveat:wght@600;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="crt" aria-hidden="true"></div>
+<div class="fx" id="fx" aria-hidden="true"></div>
+<div class="toasts" id="toasts"></div>
+
+<div class="band" aria-hidden="true"><div class="band-run"><span>в глаза мне смотри</span><span>тест одобрен Верховной Матерью</span><span>поводок прилагается</span><span>в глаза мне смотри</span><span>тест одобрен Верховной Матерью</span><span>поводок прилагается</span></div></div>
+
+<main class="wrap">
+
+  <section id="intro" class="screen">
+
+    <div class="win">
+      <div class="win-bar"><b>mother.exe</b><span class="win-btns"><i>_</i><i>□</i><i>x</i></span></div>
+      <img class="mother-img" src="img/mother.png" alt="Верховная Мать">
+      <div class="win-body">
+        <div class="dlg" id="dlg">
+          <p class="dlg-name">Верховная Мать</p>
+          <p class="dlg-text" id="dlg-text"></p>
+        </div>
+      </div>
+    </div>
+
+    <p class="tape">досье на одного мужчину</p>
+    <h1 class="title glitch" id="big-title" data-t="Кто тебе Шериф?">Кто тебе <span class="title-hl">Шериф</span>?</h1>
+    <p class="lede">Зорра, садись. Двадцать пять вопросов, пять минут, и наука наконец скажет, кем является этот человек из твоего войса: пёсиком, симпом, лошком, куколдом или всё-таки шерифом.</p>
+    <ul class="facts">
+      <li><b>25</b> вопросов, честных и неудобных</li>
+      <li><b>6</b> шкал: от длины поводка до запаса хребта</li>
+      <li><b>36</b> возможных диагнозов, включая смешанные породы</li>
+    </ul>
+
+    <p class="heads-up">Шериф проходил свою версию этого теста: он выбирал не про себя, а то, как ему самому больше нравится. После твоего ответа будет видно, что выбрал он, и иногда он там ещё и комментирует.</p>
+
+    <div class="win">
+      <div class="win-bar"><b>steam - профиль испытуемой</b><span class="win-btns"><i>_</i><i>□</i><i>x</i></span></div>
+      <div class="win-body prof">
+        <img src="img/zorra.png" alt="Профиль Зорры в Steam">
+        <div>
+          <p class="prof-t">Испытуемая: Зорра</p>
+          <p class="prof-s">Сербия. Дискорд. Смотрит в глаза.</p>
+        </div>
+      </div>
+    </div>
+
+    <button id="start" class="big-btn" type="button">Начать расследование</button>
+    <p class="note">Отвечай как есть. Он всё равно не узнает. Наверное.</p>
+  </section>
+
+  <section id="quiz" class="screen" hidden>
+    <div class="win">
+      <div class="win-bar"><b id="counter">вопрос 01 / 25</b><span id="topic">войс</span></div>
+      <div class="win-body">
+        <div class="hud">
+          <div class="hud-item hud-love">
+            <div class="hud-k"><span>привязанность</span><span id="hud-love-v">0%</span></div>
+            <div class="hud-track"><div class="hud-fill" id="hud-love"></div></div>
+          </div>
+          <div class="hud-item hud-stress">
+            <div class="hud-k"><span>сопротивление</span><span id="hud-stress-v">0%</span></div>
+            <div class="hud-track"><div class="hud-fill" id="hud-stress"></div></div>
+          </div>
+        </div>
+        <div class="track" aria-hidden="true"><div id="track-fill" class="track-fill"></div></div>
+        <div id="card">
+          <h2 id="question" class="question"></h2>
+          <p id="qnote" class="qnote" hidden></p>
+          <div id="options" class="options" role="group" aria-label="Варианты ответа"></div>
+          <div id="me-box" class="me" hidden>
+            <div class="me-top">
+              <img class="me-ava" src="img/shrf.png" alt="Аватарка Шерифа">
+              <span class="me-k" id="me-title">Shrf</span>
+            </div>
+            <p id="me-text" class="me-text"></p>
+            <ul id="me-list" class="picked" hidden></ul>
+            <p id="me-note" class="me-note" hidden></p>
+            <p id="me-match" class="me-match" hidden></p>
+          </div>
+        </div>
+        <div class="nav">
+          <button id="back" class="min-btn" type="button">Назад</button>
+          <span class="hint" id="hint">можно нажимать цифры на клавиатуре</span>
+          <button id="next" class="big-btn" type="button" hidden>Дальше</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="result" class="screen" hidden>
+    <p class="tape tape-b">вердикт вынесен</p>
+    <h2 id="verdict-title" class="title verdict-title"></h2>
+    <p id="verdict-line" class="verdict-line"></p>
+
+    <div class="win">
+      <div class="win-bar"><b>вердикт.txt</b><span class="win-btns"><i>_</i><i>□</i><i>x</i></span></div>
+      <div class="win-body">
+        <p id="verdict-blurb" class="blurb"></p>
+        <p id="verdict-mod" class="blurb blurb-mod"></p>
+        <p id="verdict-dx" class="dx"></p>
+      </div>
+    </div>
+
+    <div class="win">
+      <div class="win-bar"><b>шкалы.xls</b><span class="win-btns"><i>_</i><i>□</i><i>x</i></span></div>
+      <div class="win-body">
+        <h3 class="h3">Шкалы Шерифа</h3>
+        <p class="cap">Процент от максимума, который он мог набрать по каждой шкале в этом тесте.</p>
+        <div id="bars" class="bars"></div>
+      </div>
+    </div>
+
+    <div class="duo">
+      <div class="win">
+        <div class="win-bar"><b>форма.svg</b></div>
+        <div class="win-body">
+          <h3 class="h3 h3-s">Форма личности</h3>
+          <p class="cap">Те же шкалы, только видно перекос.</p>
+          <div id="radar" class="radar"></div>
+        </div>
+      </div>
+      <div class="win">
+        <div class="win-bar"><b>приборы.sys</b></div>
+        <div class="win-body">
+          <h3 class="h3 h3-s">Приборы</h3>
+          <p class="cap">Три главные цифры, крупно.</p>
+          <div id="tiles" class="tiles"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="win cens">
+      <div class="win-bar"><b>censored.личность</b><span class="win-btns"><i>_</i><i>□</i><i>x</i></span></div>
+      <div class="win-body">
+        <h3 class="h3 h3-s">Censored личность</h3>
+        <p class="cap">То, как Шерифу нравится, когда Зорро себя ведёт. Раздел закрыт.</p>
+        <div id="cens-lock" class="cens-lock">
+          <span class="cens-mark">18+ CENSORED</span>
+          <button id="cens-open" class="big-btn" type="button">Открыть раздел</button>
+        </div>
+        <div id="cens-body" hidden>
+          <p id="cens-text" class="blurb cens-text"></p>
+          <p class="stamp-k" id="cens-words-title"></p>
+          <p class="cap" id="cens-words-note"></p>
+          <div id="cens-words" class="words"></div>
+          <button id="cens-hide" class="min-btn" type="button">Закрыть раздел</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="win" id="rights-win" hidden>
+      <div class="win-bar"><b>права_доступа.cfg</b><span class="win-btns"><i>_</i><i>□</i><i>x</i></span></div>
+      <div class="win-body">
+        <h3 class="h3 h3-s">Что тебе разрешено</h3>
+        <p class="cap">Подписано Шерифом заранее и не глядя.</p>
+        <ul id="rights" class="picked"></ul>
+      </div>
+    </div>
+
+    <div class="win" id="traits-win" hidden>
+      <div class="win-bar"><b>характеристика.doc</b><span class="win-btns"><i>_</i><i>□</i><i>x</i></span></div>
+      <div class="win-body">
+        <h3 class="h3 h3-s">Характеристика</h3>
+        <p class="cap">Зелёное - за что держишь. Красное - за что хочется выгнать.</p>
+        <ul id="traits" class="picked"></ul>
+      </div>
+    </div>
+
+    <div class="win">
+      <div class="win-bar"><b>печать_матери</b><span class="win-btns"><i>_</i><i>□</i><i>x</i></span></div>
+      <div class="win-body">
+        <p class="stamp-k">печать Верховной Матери</p>
+        <p id="stamp-line" class="stamp-line"></p>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button id="copy" class="big-btn" type="button">Скопировать результат для Дискорда</button>
+      <button id="again" class="min-btn" type="button">Пройти заново</button>
+    </div>
+    <p id="copy-note" class="note" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="foot">Сделано для Зорры из Сербии. Дискорд. Три часа ночи.</footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-box">
+    <div class="win-bar"><b>доступ ограничен</b><span class="win-btns"><i id="modal-x">x</i></span></div>
+    <div class="win-body">
+      <p class="cap" id="modal-hint"></p>
+      <input id="pass" class="pass" type="password" placeholder="пароль" autocomplete="off" spellcheck="false">
+      <div class="nav">
+        <button id="pass-go" class="big-btn" type="button">Войти</button>
+        <button id="modal-close" class="min-btn" type="button">Закрыть</button>
+      </div>
+      <p id="pass-note" class="pass-note" aria-live="polite"></p>
+    </div>
+  </div>
+</div>
+
+<div class="taskbar">
+  <span class="tb-start">ZORRA.EXE</span>
+  <button id="music" class="tb-btn" type="button">музыка: выкл</button>
+  <button id="sfx" class="tb-btn on" type="button">звуки: вкл</button>
+  <span class="tb-gap"></span>
+  <span class="tb-clock" id="clock">00:00</span>
+</div>
+
+<script src="questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
